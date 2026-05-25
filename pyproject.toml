@@ -1,0 +1,43 @@
+[project]
+name = "stock-agent"
+version = "0.1.0"
+description = "A Pydantic AI command-line stock trading expert agent."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "ddgs>=9.14.4",
+    "httpx",
+    "pandas",
+    "pandas-ta; python_version >= '3.12' and python_version < '3.14'",
+    "pydantic-ai",
+    "python-dotenv",
+    "rich",
+    "yfinance",
+]
+
+[project.scripts]
+stock_agent = "stock_agent.cli:main"
+
+[dependency-groups]
+dev = [
+    "mypy",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["stock_agent"]
+warn_unused_ignores = false
+
+[[tool.mypy.overrides]]
+module = [
+    "duckduckgo_search.*",
+    "pandas.*",
+    "pandas_ta.*",
+    "yfinance.*",
+]
+ignore_missing_imports = true
